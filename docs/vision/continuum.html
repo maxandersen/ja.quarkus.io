@@ -1,0 +1,260 @@
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>何年もの間、このクライアントサーバーアーキテクチャーは、アプリケーションを構築するための事実上の標準でした。しかし、大きな変化が起こったのです。<em>1 つのモデルがすべてを支配していた</em> 時代は終わりました。新しい一連のアプリケーションとアーキテクチャーのスタイルが登場し、これはコードの書き方やアプリケーションの展開と実行の仕方に影響を与えました。HTTP マイクロサービス、リアクティブアプリケーション、メッセージ駆動型マイクロサービス、サーバーレスが、現在のシステムの中心的な役割を果たすようになったのです。</p>
+</div>
+<div class="paragraph">
+<p>Quarkus は、この新しい世界を念頭に置いて設計されており、これらの異なるパラダイムに対してファーストクラスのサポートを提供しています。Quarkus の開発モデルは、開発中のアプリケーションの種類に合わせて変化します。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="http-マイクロサービス"><a class="anchor" href="#http-マイクロサービス"></a>HTTP マイクロサービス</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>まずは基本中の基本、HTTP マイクロサービスから始めましょう。これに関しては、HTTP エンドポイントを開発する必要があり、これはしばしば REST や CRUD と呼ばれます。受信した HTTP リクエストを処理しますが、そのためにはデータベースなどの他のサービスや別の HTTP サービスに依存する必要があることが多くなります。</p>
+</div>
+<div class="paragraph">
+<p>このタイプのアプリケーションでは、Quarkus は JAX-RS、JPA、MicroProfile Rest Client などのよく知られた標準に依存しています。<em>果物</em> を扱う非常にシンプルなアプリケーションを見てみましょう。コードは次のようになります。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Path("fruits")
+@Produces("application/json")
+@Consumes("application/json")
+public class FruitResource {
+
+    @Inject
+    EntityManager entityManager;
+
+    @GET
+    public List&lt;Fruit&gt; get() {
+        return entityManager.createNamedQuery("Fruits.findAll", Fruit.class)
+              .getResultList();
+    }
+
+    @GET
+    @Path("{id}")
+    public Fruit getSingle(@PathParam Integer id) {
+        Fruit entity = entityManager.find(Fruit.class, id);
+        if (entity == null) {
+            throw new WebApplicationException("Fruit with id of " + id + " does not exist.", 404);
+        }
+        return entity;
+    }
+
+    @POST
+    @Transactional
+    public Response create(Fruit fruit) {
+        if (fruit.getId() != null) {
+            throw new WebApplicationException("Id was invalidly set on request.", 422);
+        }
+
+        entityManager.persist(fruit);
+        return Response.ok(fruit).status(201).build();
+    }
+
+    // ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java EE や Spring のユーザーであれば、この開発モデルは見覚えがあるはずです。さまざまなリクエストを処理するために <code>@GET</code>、<code>@POST</code> &#8230;&#8203; のアノテーションが付いたメソッドを含む <em>リソース</em> を公開しています。<em>パスは</em> <code>@Path</code> アノテーションを使って指定します。</p>
+</div>
+<div class="paragraph">
+<p>JPA ユーザーは、データベースへのアクセスに使用された <code>EntityManager</code> を認識します。最後に、トランザクションを必要とするメソッドには <code>@Transactional</code> が付けられています。</p>
+</div>
+<div class="paragraph">
+<p>ここで、別の HTTP エンドポイントにアクセスする必要があることを想像してみましょう。HTTP クライアントを直接使用できますが、これは定型文のコードを繰り返すだけです。Quarkus には、MicroProfile Rest Client API を使用して HTTP エンドポイントを簡単に呼び出す手段があります。</p>
+</div>
+<div class="paragraph">
+<p>まずは以下のようにサービスを宣言しましょう。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Path("/v2")
+@RegisterRestClient
+public interface CountriesService {
+
+    @GET
+    @Path("/name/{name}")
+    @Produces("application/json")
+    Set&lt;Country&gt; getByName(@PathParam("name") String name);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>意図している各呼び出しについて、メソッドを追加し、動作を記述するためにアノテーションを使用します。</p>
+</div>
+<div class="paragraph">
+<p>そして、リソースの中で <code>CountriesService</code> を使いします。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Path("/country")
+public class CountriesResource {
+
+    @Inject
+    @RestClient
+    CountriesService countriesService;
+
+    @GET
+    @Path("/name/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set&lt;Country&gt; name(@PathParam("name") String name) {
+        return countriesService.getByName(name);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>しかし、URL　がコードの中に出てこないため、URL がどこに設定されているのか気になるかもしれません。URL は環境に依存している可能性が高いので、ハードコード化してはいけないことを覚えておいてください。URL はアプリケーションの設定で設定されています。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># the format is interface-name/mp-rest/url=the-service-url
+org.acme.restclient.CountriesService/mp-rest/url=https://restcountries.eu/rest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>システムのプロパティーや環境変数を使用して、デプロイ時や起動時に URL を更新できるようになりました。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="リアクティブであること"><a class="anchor" href="#リアクティブであること"></a>リアクティブであること</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>アプリケーションの要件は、ここ数年で大きく変化しています。クラウドコンピューティング、ビッグデータ、IoT の時代において成功するためには、リアクティブなアーキテクチャーを採用することがますます重要になってきています。</p>
+</div>
+<div class="paragraph">
+<p>今日のユーザーは、ミリ秒単位の応答時間、100％のアップタイム、低いレイテンシー、プルではなくプッシュデータ、より高いスループットと弾力性を持つアプリケーションを採用しています。しかし、これらの機能は、リソース、インフラストラクチャー、ツールへの莫大な投資なしに、<em>これまでのソフトウェアアーキテクチャー</em> で実現することはほぼ不可能です。世界は変わり、何十台というサーバーの使用、長い応答時間 (500ms 以上)、メンテナンスによるダウンタイム、障害の嵐という状況では、期待されるユーザーエクスペリエンスを満たすことはできません。</p>
+</div>
+<div class="paragraph">
+<p>Quarkus は、皆様のリアクティブへの道筋をサポートします。まず、以下のように非同期 HTTP エンドポイントを実装します。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GET
+@Path("/greeting/{name}")
+public Uni&lt;String&gt; greetings(@PathParam("name") String name) {
+    return reactiveService.getAsyncGreetings(name);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>メソッドアクションは、スレッドをブロックすることなく、すべてが行われたときに非同期操作を構成し、結果を完了させることができます。これにより、リソース消費と弾力性が大幅に向上します。</p>
+</div>
+<div class="paragraph">
+<p>リアクティブコア、直感的なイベント駆動型開発モデル、Quarkus 内部のすべての「リアクティブファースト」戦略により、Quarkus アプリケーションは高度な並列処理を行い、リソースを効率的に使用します。</p>
+</div>
+<div class="paragraph">
+<p>しかし、ストリームについてはどうでしょうか? Quarkus を使用して <em>サーバーから送信されたイベント</em> レスポンスを生成するのは簡単です。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Produces(MediaType.SERVER_SENT_EVENTS)
+@GET
+@Path("/neo")
+public Multi&lt;String&gt; stream() {
+    return service.getStream();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>このメソッドは <code>Multi</code> を返しますが、Reactive Streams <code>Publisher</code> の実装を使用することができます。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Produces(MediaType.SERVER_SENT_EVENTS)
+@GET
+@Path("/neo")
+public Multi&lt;String&gt; stream() {
+    return Multi.createFrom().items("a", "b", "c")
+           .onItem().transform(String::toUpperCase);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="メッセージ駆動型マイクロサービス"><a class="anchor" href="#メッセージ駆動型マイクロサービス"></a>メッセージ駆動型マイクロサービス</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>しかし、HTTP の特性上、すべてのコンポーネントが非同期メッセージの通過を使用して相互作用する <a href="https://www.reactivemanifesto.org/">リアクティブシステム</a> を実装することはできません。しかし心配はいりません。Quarkus は、メッセージ駆動型のマイクロサービスやリアクティブシステムの実装に完全に適しています。</p>
+</div>
+<div class="paragraph">
+<p>まず、AMQP や Kafka などの各種ブローカーからのメッセージを消費し、スムーズに処理することができます。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ApplicationScoped
+public class HealthDataProcessor {
+
+  @Incoming("health")
+  @Outgoing("heartbeat")
+  public double filtered(Health health) {
+    return health.getHeartbeat();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>@Incoming</code> および <code>@Outgoing</code> アノテーションは、https://www.smallrye.io/smallrye-reactive-messaging[Reactive Messaging] の一部です。これは、消費している <em>ストリーム</em> から、送信しているストリームまでを表現するために使用されます。Reactive Messaging により、HTTP、Kafka、http://camel.apache.org[Apache Camel] などの異なるブローカーやトランスポートとの間でメッセージを消費したり、送信したりすることができます。</p>
+</div>
+<div class="paragraph">
+<p>メッセージを 1 つずつ処理するだけでは不十分な場合もあります。次のスニペットに示すように、リアクティブプログラミングを使ってメッセージ処理ロジックを表現することもできます。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Incoming("health")
+@Outgoing("output")
+public Multi&lt;Record&lt;String, JsonObject&gt;&gt; filterState(Multi&lt;JsonObject&gt; input) {
+    return input
+      .onItem().transform(json -&gt; json.getJsonObject("state"))
+      .drop().repetitions()
+      .onItem().invoke(json -&gt; LOGGER.info("Forwarding new state '{}' to Kafka", json.encode()))
+      .onItem().transform(json -&gt; Record.of("neo", json));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reactive Messaging で <em>命令</em> 型ロジックを使用することもできます。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Incoming("orders")
+@Outgoing("queue")
+@Blocking
+public Beverage process(Order order) {
+    return prepare(order); // Block the caller thread.
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="サービスとサーバーレスとしての関数"><a class="anchor" href="#サービスとサーバーレスとしての関数"></a>サービスとサーバーレスとしての関数</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>驚異的な起動時間と低いメモリー使用量により、Quarkus を使用して、サーバーレス環境で使用するように関数を実装することができます。AWS Lambda を使用している場合、Quarkus の関数は次のようになります。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class HelloLambda implements RequestHandler&lt;HelloRequest, String&gt; {
+
+    @Inject
+    HelloGreeter greeter;
+
+    @Override
+    public String handleRequest(HelloRequest request, Context context) {
+        return greeter.greet(request.firstName, request.lastName);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Quarkus の機能のいずれかは関数で使用することができ、高速な起動と低メモリー使用率の恩恵を受けることができます。Quarkus を使用すると、プログラミング言語を変更することなく、この新しい世界を採用することができます。</p>
+</div>
+</div>
+</div>

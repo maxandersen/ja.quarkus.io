@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+    <channel>
+        <title>Quarkus</title>
+        <link>https://quarkus.io</link>
+        <description>Quarkus: Supersonic Subatomic Java</description>
+        <lastBuildDate>Wed, 08 Jun 2022 18:36:37 +0000</lastBuildDate>
+        
+        <item>
+            <title>Banco do Brasil extracts Open Banking investment data with Quarkus and Kafka</title>
+            <link>
+                https://quarkus.io/blog/banco-do-brasil-open-banking-user-story/
+            </link>
+            <description>
+                Banco do Brasil S.A. is a Brazilian financial services company headquartered in Brasília, Brazil. The oldest bank in Brazil, and among the oldest banks in continuous operation in the world, it was founded by John VI, King of Portugal, in 1808. It is the second largest banking institution in Brazil,...
+            </description>
+            <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/banco-do-brasil-open-banking-user-story/
+            </guid>
+            
+            
+            
+            <author>Felipe Henrique Gross Windmoller (https://twitter.com/felipewind83)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus 2.9.2.Finalリリース - メンテナンスリリース</title>
+            <link>
+                https://quarkus.io/blog/quarkus-2-9-2-final-released/
+            </link>
+            <description>
+                
+本日、2.9の2回目のメンテナンスリリースであるQuarkus 2.9.2.Finalをリリースしました。 これには、多数の修正とドキュメントの改善が含まれます。
+
+
+これは、すでに2.9を使用している人には安全なアップグレードです。
+
+
+2.9 をまだ使用していない場合は、 2.9 移行ガイド を参照してください。
+
+
+完全な変更履歴
+
+
+2.9.2.Finalの完全な変更履歴は、GitHub に掲載されています。
+
+
+
+
+参加のお誘い
+
+
+私達は皆様からのフィードバックに重きを置いています。バグ報告、改善要望を是非お願いします。一緒に素晴らしいものを作り上げていきましょう!
+
+
+Quarkusユーザーの場合でも、単に興味を持っているだけの場合でも、恥ずかしがらずにコミュニティに参加して下さい!:
+
+
+
+
+GitHub でフィードバック
+
+
+コードを作成し、 プルリクエスト を送信
+
+
+Zulip や メーリングリスト でディスカッションに参加
+
+
+Stack Overflow で質問
+
+
+
+
+
+            </description>
+            <pubDate>Wed, 25 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quarkus-2-9-2-final-released/
+            </guid>
+            
+            
+            
+            <author>Guillaume Smet (https://twitter.com/gsmet_)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus Tools for IntelliJ 1.11.0リリース!</title>
+            <link>
+                https://quarkus.io/blog/intellij-quarkus-tools-1.11.0/
+            </link>
+            <description>
+                Quarkus Tools for IntelliJの1.11.0リリースを発表できることを大変嬉しく思います。このリリースでは、Quteテンプレートのサポートが追加され、LSP4MP 0.4.0およびquarkus-ls 0.11.1との整合性もとられています。 Quteテンプレート QuarkusプロジェクトのクラスパスにQuteがある場合、Quteテンプレート（HTML / JSON / YAML / Text）の編集は、エディタに新機能を追加します。 ちょっと見てみましょう。 QuteテンプレートとJavaの連携 これで、どの Template 属性にも、対応する Qute テンプレートを生成するか、既存のテンプレート・ファイルに移動するかのオプションが表示されるようになりました。 対応するJavaリソースと組み合わされた全てのQuteファイルは、定義への移動、ホバー、オートコンプリートなど、多くの言語クライアント機能をサポートしています。これらの各機能については、記事でさらに詳しく説明します。 Quteテンプレートにおけるメソッドパラメータのサポート Qute言語サーバーは、ビルトインおよびユーザー定義のJavaクラスをサポートしており、そのメソッドに対するパラメータ補完や検証を行うことができます。これを利用して、Javaに関連するミスを簡単に回避してください。 QuteテンプレートのJavaタイプホバーサポート Java補完と検証のサポートに加え、組み込みおよびユーザー定義のJavaクラスに対するタイプホバーリングもサポートしています。 Quteセクションの補完 Quteテンプレートは、テンプレート言語のセクションを使用して、結果のドキュメントをコンパイルして表示する際に必要なロジックを実行します。これをサポートするために、エクステンションのQuteサポートは、利用可能なすべてのQuteセクションと、それらが取るパラメータ、およびそれらの使用法の小さなコードスニペットを補完リストに入力します。 Qute Validationのサポート Quarkus Tools for IntelliJを使用したQuteテンプレートには、JavaおよびQuteのバリデーションが含まれており、診断も可能です。 Qute Value Resolversの補完 対応するJavaメソッドと対になっている組み込みのJavaクラスには、Quteテンプレートエンジンによって利用可能な組み込みのQute値リゾルバがあり、評価されて値を出力、または値に解決します。Quarkus Tools for IntelliJは、これらの組み込み値リゾルバの補完、ホバー、およびスニペット生成をサポートしています。 TemplateExtension メソッドのサポート テンプレートエクステンションメソッドは、データオブジェクトのアクセス可能なプロパティのセットを拡張するために使用されます。Quarkus Tools for IntelliJ の Qute サポートでは、マークされた...
+            </description>
+            <pubDate>Mon, 23 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/intellij-quarkus-tools-1.11.0/
+            </guid>
+            
+            
+            
+            <author>Jeff Maury (https://twitter.com/jeffmaury)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quinoa - Modern UIを手間なく作成するためのQuarkusエクステンション</title>
+            <link>
+                https://quarkus.io/blog/quinoa-modern-ui-with-no-hassle/
+            </link>
+            <description>
+                Quinoa&#8230;&#8203;正直最初はあまり好きではなかったのですが、妻がアボカドや生サーモンと一緒にサラダのようにボウルに入れて作ってくれたんです。今では、醤油を少し垂らして食べるのがとても美味しいです。余談ですが、この記事では健康的な食べ物について話すのではなく、QuarkusでモダンなUIをコーディングして楽しむためのエクステンションについて話しています。 このエクステンションはQuarkusのコアエクステンションではなく、Quarkiverseの一部として利用可能です。このアイデアを成熟させるために、初期のフィードバックと貢献をお願いします。 入門 新しいQuinoaプロジェクト（ベースとなるQuinoaスターターコードを含む）を作成します。 code.quarkus.io を使用した場合 Quarkus CLI を使用した場合: quarkus create app quinoa-app -x=io.quarkiverse.quinoa:quarkus-quinoa そして、ライブコーディングを開始し、* http://0.0.0.0:8080/quinoa.html に移動*します。 quarkus dev これ は、より深く、React、Angular、Lit、Webpack、Rollupなどの任意のNodeベースのWeb UIフレームワークであなたのアプリを構成するためのQuinoaのガイドです&#8230;&#8203; ちょっとした背景説明 Quarkusと共に、ReactやAngularといったWebフレームワークとの連携は、自然なニーズです。多くのユーザーは、Quarkusの初期段階から、スムーズな統合を要望していました ( #588 ）。そのため、Quarkus用のQuinoaエクステンションを作成しました。 Quarkusが誕生して以来（3年前）、この問題を解決するために 多くのブログ記事 が作成されましたが、そのほとんどはfrontend-maven-pluginを利用したものでした。code.quarkus.ioの作成者として、私もこの状況に直面し、他の多くの人と同様に、このプラグインを使用してギャップを埋めました。このプラグインは確かに仕事をし、当面のニーズを満たすには十分でした。残念ながら、全体的なプロセスはもっと合理的で簡単に始められるはずです。多くの設定、リソースを正しい場所にコピーするためのトリッキーなセットアップ、適切なタイミングでフロントエンドをテストすることが必要です。ライブコーディングでは、2つのプロセスを起動し、それを一緒に動作させるためのプロキシが必要です。 調理をはじめよう この経験を背景に、私は私たちの生活を少し楽にするために何か貢献する良い立場にありました。私は、すべてのニーズ、問題、提案、ブログ記事に目を通し、Quarkusで健康的でモダンなユーザーインターフェース（UI）を作成するための新しいエクステンション、Quinoa（Quarkus UI with NO HAssle : の略）を考え出しました。 Quinoaは、Web UIのビルド/結合/ライブ設定にまつわるすべてのタスクを隠蔽し、Webアプリケーションのロジックに専念できるようにします。フルスタックのシングルページアプリケーションやマイクロサービス（マイクロフロントエンド）を作成する場合でも、物事をより簡単にすることができます。 Node.jsには、モダンなフロントエンドのWebアプリケーションを作成するための優れたツールがあります。Quarkusには、クラウドで信頼性の高いモダンなバックエンドを構築するための幅広いエコシステムがあります（マイクロサービス、レスト、DB、イベント、クラウド・ネイティブ&#8230;&#8203;）。Quinoaは、この2つの世界の長所を得るための接着剤です。 NodeJSプロジェクトがQuinoaと互換性を持つための唯一の前提条件は、 build スクリプトを持っていることです。これは、特定のディレクトリに静的なファイル（index.html、javascript、css、&#8230;&#8203;）を生成する必要があります。チームはさまざまなので、全員が満足できるように、ウェブUIをQuarkusプロジェクト内（デフォルトは src/main/webui ）または外（ビルド時にディスク上で利用可能である限り）に置くことが可能です。 パッケージマネージャ （NPM、Yarn、PNPM）を 設定 する必要はありません（可能です）。プロジェクトのロックファイルによって自動的に検出されます。...
+            </description>
+            <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quinoa-modern-ui-with-no-hassle/
+            </guid>
+            
+            
+            
+            <author>Andy Damevin (https://twitter.com/ia3andy)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus 2.9.1.Finalリリース - メンテナンスリリース</title>
+            <link>
+                https://quarkus.io/blog/quarkus-2-9-1-final-released/
+            </link>
+            <description>
+                
+2.9リリースの最初のメンテナンスリリースであるQuarkus 2.9.1.Finalのリリースを発表できることを嬉しく思います。
+
+
+これは、すでに2.9を使用している人には安全なアップグレードです。
+
+
+2.9 をまだ使用していない場合は、https://github.com/quarkusio/quarkus/wiki/Migration-Guide-2.9[2.9 移行ガイド] を参照してください。
+
+
+完全な変更履歴
+
+
+2.9.1.Finalの完全な変更履歴はGitHubに掲載されています。
+
+
+
+
+参加のお誘い
+
+
+私達は皆様からのフィードバックに重きを置いています。バグ報告、改善要望を是非お願いします。一緒に素晴らしいものを作り上げていきましょう!
+
+
+Quarkusユーザーの場合でも、単に興味を持っているだけの場合でも、恥ずかしがらずにコミュニティに参加して下さい!:
+
+
+
+
+GitHub でフィードバック
+
+
+コードを作成し、 プルリクエスト を送信
+
+
+Zulip や メーリングリスト でディスカッションに参加
+
+
+Stack Overflow で質問
+
+
+
+
+
+            </description>
+            <pubDate>Tue, 17 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quarkus-2-9-1-final-released/
+            </guid>
+            
+            
+            
+            <author>Guillaume Smet (https://twitter.com/gsmet_)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus Newsletter #20 - May</title>
+            <link>
+                https://quarkus.io/blog/quarkus-newsletter-20/
+            </link>
+            <description>
+                5月号ニュースレターを発行しました! Kubernetes上のマイクロサービスは、フレームワークとJavaランタイムのオーバーヘッドが最も大きいため、ネイティブJavaのビジネスケースのスイートスポットであることが説明されている素晴らしい記事 "Native Java in the Real World"をお読みください。また、Quarkus用のCamelエクステンションを使用して、強力なJava統合を構築する方法についても説明しています。また、"Reactive Timer Microservice with Java Quartz, DynamoDB and Quarkus"では、新しいマイクロサービスを作成するための簡単なステップバイステップガイドが用意されています。また、"Getting Started to Quarkus Reactive Messaging with Apache Kafka"では、Apache Kafkaを使用したReactive Messagingの基本的な知識と理解を得ることができます。"Process Formula 1 telemetry with Quarkus and OpenShift Streams for Apache Kafka" は、レースチームのエンジニアが複数のソフトウェア技術を活用して、Javaアプリケーションで遠隔測定データをリアルタイムに処理する方法を紹介する優れた記事です。"すべてのJava開発者がQuarkusを検討すべき3つの理由" をフォローアップしています。 また、最新のQuarkus Insightsエピソード、トップツイート、Quarkusが参加する今後のイベントも載っています。 Newsletter #20 をご覧ください。 ニュースレターを受信してみませんか？ページ上のフォームを使って ニュースレターに登録してください。 また、最新のオンラインストーリーのリストも掲載されています。読んでみて、何か足りないと感じたり、今後のQuarkus Newsletterに掲載予定の記事がある場合は、ノートパソコンや携帯電話に ブックマークレットをインストールすると、簡単に記事を投稿することができます。手動での投稿をご希望の場合は、簡単な説明とURLを入力して Issueをオープンしてください。...
+            </description>
+            <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quarkus-newsletter-20/
+            </guid>
+            
+            
+            
+            <author>James Cobb (https://twitter.com/insectengine)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus 2.9.0.Final リリース - WebAuthnエクステンション、Reactive RoutesおよびRESTEasy Reactiveの圧縮サポート、その他多数...</title>
+            <link>
+                https://quarkus.io/blog/quarkus-2-9-0-final-released/
+            </link>
+            <description>
+                新機能を満載したQuarkus 2.9をリリースしました: WebAuthn エクステンション Reactive RoutesとRESTEasy Reactiveにおける圧縮サポート Confluent Schema Registryのサポート バックチャンネルログアウトに対応 KotlinとScalaのアップグレード 他多数&#8230;&#8203; 移行ガイド 2.8から移行する場合は、 移行ガイド をご参照ください。 変更点 WebAuthn エクステンション WebAuthn は、パスワードを置き換えるために設計された認証メカニズムです。つまり、新しいユーザーを登録したり、ログインしたりするサービスを書くたびに、パスワードを要求する代わりに、WebAuthn を使って、パスワードを置き換えるのです。 WebAuthnは、パスワードをIDの証明に置き換えます。実際には、ユーザーは、パスワードを考案したり、保存したり、記憶したりする代わりに、あなたのサービスやウェブサイトのために特別に身元証明を生成するハードウェアトークンを使用することになります。これは、ユーザーに携帯電話で親指を押してもらったり、パソコンで YubiKey のボタンを押したりすることで実現可能です。 新しい quarkus-security-webauthn エクステンションのおかげで、QuarkusアプリケーションにWebAuthn認証を実装することができます。 その詳細は、 個別のガイド に記載されています。 OpenID Connect プロバイダー GitHub、Google、Microsoft、Appleなどの有名なOIDCプロバイダーは、最新のアプリケーションでユーザーを認証するために非常に広く使用されています。 それらを設定するのは大変なことで、それぞれがOIDCをどのように実装したかを正しく理解するためには、それぞれに作業が必要です。 そのため、Quarkusには、多くの有名なプロバイダーの設定があらかじめ用意されており、 豊富なドキュメント で設定方法を説明します。 現在、カバーされているプロバイダーは以下の通りです: GitHub Google Microsoft Apple Facebook Twitter Spotify 今後更に追加します。また、コントリビューションは大歓迎です。 Reactive...
+            </description>
+            <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quarkus-2-9-0-final-released/
+            </guid>
+            
+            
+            
+            <author>Guillaume Smet (https://twitter.com/gsmet_)</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus 2.8.3.Finalリリース - メンテナンスリリース</title>
+            <link>
+                https://quarkus.io/blog/quarkus-2-8-3-final-released/
+            </link>
+            <description>
+                
+Quarkus 2.8.3.Finalをリリースしました。これは、2.8リリーストレインの3つ目で、おそらく最後のメンテナンスリリースです。2.9.0.Finalは来週リリースされる予定です。
+
+
+これは、すでに2.8をお使いの方にとって安全なアップグレードです。
+
+
+まだ2.8をお使いでない方は、 2.8移行ガイドをご参照ください。
+
+
+完全な変更履歴
+
+
+GitHubで2.8.3.Finalの全変更履歴 をご覧いただけます。
+
+
+
+
+参加のお誘い
+
+
+私達は皆様からのフィードバックに重きを置いています。バグ報告、改善要望を是非お願いします。一緒に素晴らしいものを作り上げていきましょう!
+
+
+Quarkusユーザーの場合でも、単に興味を持っているだけの場合でも、恥ずかしがらずにコミュニティに参加して下さい!:
+
+
+
+
+GitHub でフィードバック
+
+
+コードを作成し、 プルリクエスト を送信
+
+
+Zulip や メーリングリスト でディスカッションに参加
+
+
+Stack Overflow で質問
+
+
+
+
+
+            </description>
+            <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quarkus-2-8-3-final-released/
+            </guid>
+            
+            
+            
+            <author>Guillaume Smet (https://twitter.com/gsmet_)</author>
+            
+        </item>
+        
+        <item>
+            <title>CryostatでQuarkusのJVMモードを監視</title>
+            <link>
+                https://quarkus.io/blog/monitoring-quarkus-jvm-mode-with-cryostat/
+            </link>
+            <description>
+                Cryostatは、HotSpot JVM 上で動作する Java アプリケーションに既に存在する JDK Flight Recorder(JFR) フレームワークを活用したプロファイリングおよび監視ツールです。Cryostatは、クラスタ内の収集ハブを提供し、クラスタ外からJDK Flight Recorderデータに簡単かつ安全にアクセスすることができます。Cryostatは、主にOpenShiftへのデプロイをターゲットとするクラウドネイティブアプリケーションです。したがって、このガイドでは、わかりやすくするために、QuarkusアプリケーションもOpenShiftにデプロイしているものと仮定します。 この記事では、CryostatがQuarkusと通信し、JDK Flight Recorderの収集、保存、および分析ツールを提供できるように、Quarkusアプリケーションを設定する方法について説明します。 Figure 1. クライオスタット自動分析レポート Figure 2. Cryostat Grafana Dashboard Quarkusを使用したCryostatの注意点 Quarkusは、標準のJVMモード（ビルドにより.JARファイルを生成し、ランタイムにJVMでロードして実行）またはネイティブモード（ビルドにより、直接実行するネイティブバイナリを生成）でビルドできることは有名な話です。CryostatはJDK Flight Recorder（JFR）に依存していますが、これはQuarkusのネイティブモードでは部分的にしかサポートされておらず、JDK Management Extensions（JMX）は執筆時点ではネイティブモードではサポートされていません。つまり、残念ながら、JVMモードのQuarkusアプリケーションしかCryostatで使用するように設定することができません。 Cryostat入門 OpenShiftでCryostatを始めるには、OperatorHubからインストールするだけで、素早く簡単にできます。 Figure 3. Cryostatインストール 次に、Cryostat CR リソースインスタンスを作成し、Operator に Cryostat インスタンスをデプロイすることを知らせます。この段階で、いくつかの設定オプションを選択することもできますが、ここではデフォルトを前提とします。 Figure 4. Cryostat作成 Cryostat通信 CryostatはJMXを使用して、HotSpot JVM上で動作するアプリケーション（JavaおよびScalaアプリケーションを含むが、これに限定されない）と対話します。JMXは、ツールがアプリケーションに接続してアクションを実行したり、さまざまな基礎となるトランスポートプロトコルを介してデータを取得したりできるようにする標準のJavaテクノロジーです。QuarkusアプリケーションをJVMモードで構築してデプロイする場合、JMXサポートはすでに組み込まれており、すぐに使用できます。アプリケーションでJMXを有効にするには、2つの方法があります。 方法1：実行時に有効化 JMXは、JVMのシステムプロパティを設定することで有効にすることができます。 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=${RJMX_PORT} -Dcom.sun.management.jmxremote.rmi.port=${RJMX_PORT}...
+            </description>
+            <pubDate>Wed, 27 Apr 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/monitoring-quarkus-jvm-mode-with-cryostat/
+            </guid>
+            
+            
+            
+            <author>Andrew Azores</author>
+            
+        </item>
+        
+        <item>
+            <title>Quarkus 2.8.2.Finalリリース - メンテナンスリリース</title>
+            <link>
+                https://quarkus.io/blog/quarkus-2-8-2-final-released/
+            </link>
+            <description>
+                
+本日、2.8.2.Finalをリリースしましたが、例によってバグフィックスとドキュメントの改善のみが含まれています。
+
+
+これは、すでに2.8をお使いの方にとって安全なアップグレードです。
+
+
+まだ2.8をお使いでない方は、 2.8移行ガイドをご参照ください。
+
+
+完全な変更履歴
+
+
+GitHubで2.8.2.Finalの全変更履歴をご覧いただけます。
+
+
+
+
+参加のお誘い
+
+
+私達は皆様からのフィードバックに重きを置いています。バグ報告、改善要望を是非お願いします。一緒に素晴らしいものを作り上げていきましょう!
+
+
+Quarkusユーザーの場合でも、単に興味を持っているだけの場合でも、恥ずかしがらずにコミュニティに参加して下さい!:
+
+
+
+
+GitHub でフィードバック
+
+
+コードを作成し、 プルリクエスト を送信
+
+
+Zulip や メーリングリスト でディスカッションに参加
+
+
+Stack Overflow で質問
+
+
+
+
+
+            </description>
+            <pubDate>Tue, 26 Apr 2022 00:00:00 +0000</pubDate>
+            <guid>
+                https://quarkus.io/blog/quarkus-2-8-2-final-released/
+            </guid>
+            
+            
+            
+            <author>Guillaume Smet (https://twitter.com/gsmet_)</author>
+            
+        </item>
+        
+    </channel>
+</rss>
